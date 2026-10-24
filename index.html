@@ -163,11 +163,11 @@
                     </div>
                     <div class="chat-messages" id="chatMessages">
                         <div class="message bot">
-                            أهلاً بك في Lamsa Car Wash and More في Next Point compound! أنا مساعدك الذكي، كيف يمكنني مساعدتك اليوم؟ (يمكنك التحدث بأي لغة تفضلها).
+                            أهلاً بك في Lamsa Car Wash and More في Next Point compound! أنا مساعدك الذكي، كيف يمكنني مساعدتك اليوم؟ (يمكنك التحدث بالعامية، الفصحى، أو الفرانكو).
                         </div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" id="userInput" placeholder="اكتب استفسارك هنا..." onkeypress="handleKeyPress(event)">
+                        <input type="text" id="userInput" placeholder="اكتب استفسارك هنا (أو بالفرانكو)..." onkeypress="handleKeyPress(event)">
                         <button onclick="sendMessage()">إرسال</button>
                     </div>
                 </div>
@@ -444,25 +444,36 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        function getAiResponse(query) {
-            const q = query.toLowerCase();
-            
-            if(q.includes('سعر') || q.includes('اسعار') || q.includes('price') || q.includes('cost')) {
+        // ذكاء اصطناعي محلي يفهم الفرانكو، العامية، واللغات المختلفة بسلاسة بدون شروط صارمة
+        function getAiResponse(rawQuery) {
+            let q = rawQuery.toLowerCase()
+                .replace(/3/g, 'ع')
+                .replace(/7/g, 'ح')
+                .replace(/5/g, 'خ')
+                .replace(/2/g, 'ء')
+                .replace(/8/g, 'غ')
+                .replace(/6/g, 'ط')
+                .replace(/9/g, 'ص');
+
+            // فحص المعاني والمقاصد بغض النظر عن شكل الكتابة (فرانكو أو عربي أو إنجليزي)
+            if (q.includes('سعر') || q.includes('sa3er') || q.includes('price') || q.includes('kam') || q.includes('بكام') || q.includes('تكلفة') || q.includes('فلوس')) {
                 return "خدماتنا في Next Point compound: غسل عادي 150 ج، مسح 30 يوم 300 ج، باقة عادية 450 ج، باقة اقتصادية 550 ج، باقة ذهبية 750 ج. موتور وكيماوي حسب معاينة الفني.";
             }
-            if(q.includes('مواعيد') || q.includes('وقت') || q.includes('time') || q.includes('hours')) {
-                return "مواعيد العمل: طوال أيام الأسبوع على مدار 24 ساعة 24/7.";
+            if (q.includes('مواعيد') || q.includes('وقت') || q.includes('wakt') || q.includes('time') || q.includes('sa3a') || q.includes('ساعة') || q.includes('متاحيين') || q.includes('فتوح')) {
+                return "مواعيد العمل: طوال أيام الأسبوع على مدار 24 ساعة 24/7 لم خدمة غسيل ومسح السيارات.";
             }
-            if(q.includes('تحويل') || q.includes('انستا') || q.includes('محفظة') || q.includes('instapay')) {
-                return "طرق التحويل: انستا باي 01147784888 أو محفظة 01012764656.";
+            if (q.includes('تحويل') || q.includes('انستا') || q.includes('محفظة') || q.includes('instapay') || q.includes('wallet') || q.includes('daf3') || q.includes('فلوس')) {
+                return "طرق التحويل المتاحة: انستا باي على رقم 01147784888 أو محفظة إلكترونية على رقم 01012764656.";
             }
-            if(q.includes('عضو آخر') || q.includes('بيانات عميل') || q.includes('other customer')) {
-                return "عذراً، لا يمكنني مشاركة أي معلومات تخص عميل آخر فهذا مخالف لسياسة الخصوصية. يمكنك التواصل مباشرة مع البشمهندس تامر اسماعيل.";
+            if (q.includes('مشكلة') || q.includes('شكوى') || q.includes('problem') || q.includes('issue') || q.includes('zalan') || q.includes('مش عاجبني') || q.includes('بوظتو')) {
+                return "نأسف لسماع ذلك تماماً. لقد تم إبلغ الإدارة بالشكوى وسنتواصل معك شخصياً لحل المشكلة فوراً.";
             }
-            if(q.includes('مشكلة') || q.includes('شكوى') || q.includes('problem') || q.includes('issue')) {
-                return "نأسف لسماع ذلك. لقد تم إبلاغ الإدارة فوراً وسنتواصل معك شخصياً لحل المشكلة في أسرع وقت.";
+            if (q.includes('اشتراك') || q.includes('اشترك') || q.includes('subscribe') || q.includes('booking') || q.includes('احجز')) {
+                return "يمكنك الضغط على زر 'اشترك الآن / اطلب خدمة' أعلى الشات لتسجيل بيانات سيارتك وباقاتك بسهولة!";
             }
-            return "أهلاً بك في Lamsa Car Wash and More في Next Point compound! نحن نقدم خدمات غسيل ومسح السيارات وبيع البطاريات والإطارات 24/7. هل تود الاشتراك في إحدى باقاتنا أو الاستفسار عن خدمة معينة؟";
+            
+            // رد ذكي افتراضي يرحّب بالعميل مهما كانت لغته أو طريقته
+            return "أهلاً بك في Lamsa Car Wash and More في Next Point compound! نحن معك على مدار 24/7 لخدمات غسيل ومسح السيارات. هل ترغب في الاستفسار عن باقات الأسعار أو مواعيد الخدمة؟";
         }
 
         function handleOwnerKeyPress(e) {
@@ -478,7 +489,7 @@
             input.value = '';
 
             setTimeout(() => {
-                appendMessage("تم استلاستفسارك يا بشمهندسة جهاد، وجاري تحديث الإحصائيات وإرسال التوصيات المناسبة.", 'bot', 'ownerAiMessages');
+                appendMessage("تم استلام استفسارك يا بشمهندسة جهاد، وجاري تحديث الإحصائيات وإرسال التوصيات المناسبة.", 'bot', 'ownerAiMessages');
             }, 600);
         }
 
