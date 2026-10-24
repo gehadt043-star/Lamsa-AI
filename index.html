@@ -314,4 +314,42 @@
             if (match(['مواعيد', 'وقت', 'ساعة', 'متاحيين', 'امتى', 'wakt', 'time', 'sa3a', 'hours'])) {
                 return "مواعيد العمل: متاحين على مدار الساعة 24/7 طوال الأسبوع.";
             }
-            if (match(['تحويل', 'انستا', 'محفظة', 'instapay', 'wallet', 'daf3', 'دفع', '
+            if (match(['تحويل', 'انستا', 'محفظة', 'instapay', 'wallet', 'daf3', 'دفع', 'رقم'])) {
+                return "طرق الدفع: انستا باي (01147784888) أو محفظة إلكترونية (01012764656).";
+            }
+            if (match(['مشكلة', 'شكوى', 'مش عاجبني', 'بوظتو', 'problem', 'issue', 'zalan'])) {
+                return "نأسف لذلك، تم إبلاغ الإدارة وسيتم التواصل معك فوراً لحل المشكلة.";
+            }
+            if (match(['اشتراك', 'احجز', 'خدمة', 'subscribe', 'booking'])) {
+                return "اضغط على زر 'اشترك الآن / اطلب خدمة' بالأعلى لتسجيل بياناتك وسرعة خدمتك.";
+            }
+
+            return "أهلاً بيك في Lamsa Support Agent! وأقدر أساعدك ازاي؟";
+        }
+
+        function handleOwnerKeyPress(e) { if(e.key === 'Enter') sendOwnerAiMessage(); }
+        function sendOwnerAiMessage() {
+            const input = document.getElementById('ownerAiInput');
+            const text = input.value.trim();
+            if(!text) return;
+            appendMessage(text, 'user', 'ownerAiMessages');
+            input.value = '';
+            setTimeout(() => { appendMessage("تم استلام رسالتك وتحديث النظام.", 'bot', 'ownerAiMessages'); }, 400);
+        }
+
+        let myChart = null;
+        function initChart() {
+            if(myChart) return;
+            const ctx = document.getElementById('feedbackChart').getContext('2d');
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+                    datasets: [{ label: 'الإيجابيات', data: [60, 68, 75, 72, 80, 83, 85], borderColor: '#10b981', fill: true }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+    </script>
+</body>
+</html>
