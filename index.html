@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lamsa Car Wash and More | لمسة لغسيل السيارات</title>
+    <title>Lamsa Car Wash and More</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,10 +11,9 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
         body { background-color: #f4f7f6; color: #333; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         
-        /* Top Bar & Branding */
         header { background: #1b263b; color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 100; }
         .brand-section { display: flex; align-items: center; gap: 15px; }
-        .brand-logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #415a77; }
+        .brand-logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #415a77; background: #fff; }
         .brand-title h1 { font-size: 1.2rem; color: #e0e1dd; }
         .brand-title p { font-size: 0.8rem; color: #94a3b8; }
         
@@ -22,14 +21,10 @@
         .nav-btn { background: #415a77; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
         .nav-btn:hover, .nav-btn.active { background: #00b4d8; }
 
-        /* Main Container */
         .main-container { flex: 1; display: flex; position: relative; overflow: hidden; }
-        
-        /* Views */
         .view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #f4f7f6; display: flex; flex-direction: column; transition: transform 0.4s ease; transform: translateX(100%); z-index: 1; }
         .view.active { transform: translateX(0); z-index: 10; }
 
-        /* Client Portal */
         .client-layout { display: grid; grid-template-columns: 320px 1fr; height: 100%; }
         @media(max-width: 900px) { .client-layout { grid-template-columns: 1fr; } .sidebar-info { display: none; } }
         
@@ -53,15 +48,12 @@
         .chat-input-area button { background: #0077b6; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
         .chat-input-area button:hover { background: #023e8a; }
 
-        /* Admin Login Modal / View */
         .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
         .login-box { background: white; padding: 30px; border-radius: 12px; width: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 15px; }
         .login-box h2 { color: #1e293b; text-align: center; margin-bottom: 10px; }
         .login-box input { padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
         .login-box button { background: #1b263b; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .login-box button:hover { background: #415a77; }
 
-        /* Admin Dashboard */
         .admin-layout { display: grid; grid-template-columns: 260px 1fr; height: 100%; background: #f8fafc; }
         .admin-sidebar { background: #1e293b; color: white; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
         .admin-sidebar h2 { font-size: 1.1rem; border-bottom: 1px solid #334155; padding-bottom: 10px; }
@@ -77,7 +69,6 @@
         .dashboard-section { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .dashboard-section h3 { margin-bottom: 15px; color: #1e293b; font-size: 1.1rem; }
 
-        /* Subscription & Survey Form Modals/Containers inside chat */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 500; }
         .modal-card { background: white; padding: 25px; border-radius: 12px; width: 450px; max-width: 90%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
         .modal-card h3 { color: #1b263b; margin-bottom: 5px; }
@@ -89,337 +80,198 @@
 </head>
 <body>
 
-    <!-- Top Header -->
     <header>
         <div class="brand-section">
-            <img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=100&auto=format&fit=crop&q=80" alt="Lamsa Car Wash" class="brand-logo" id="brandLogoImg">
+            <img src="logo.jpg" alt="Lamsa Logo" class="brand-logo">
             <div class="brand-title">
                 <h1>Lamsa Car Wash and More</h1>
-                <p>مغسلة سيارات في Next Point compound | تم الإنشاء بواسطة البشمهندسه جهاد تامر</p>
+                <p>بوابة خدمة العملاء الذكية</p>
             </div>
         </div>
         <div class="nav-buttons">
             <button class="nav-btn active" onclick="switchView('client')">بوابة العملاء</button>
-            <button class="nav-btn" onclick="openAdminLogin()">لوحة الإدارة الخاصة</button>
+            <button class="nav-btn" onclick="openAdminLogin()">لوحة الإدارة</button>
         </div>
     </header>
 
-    <!-- Main Views Container -->
     <div class="main-container">
-        
-        <!-- CLIENT VIEW -->
         <div id="clientView" class="view active">
             <div class="client-layout">
-                <!-- Sidebar Info & Quick Actions -->
                 <div class="sidebar-info">
                     <div class="info-card">
                         <h3><i class="fa-solid fa-clock"></i> مواعيد العمل</h3>
-                        <ul>
-                            <li>متاحة على مدار الساعة 24/7</li>
-                        </ul>
+                        <ul><li>متاحة على مدار الساعة 24/7</li></ul>
                     </div>
-
                     <div class="info-card">
                         <h3><i class="fa-solid fa-tags"></i> الخدمات والأسعار</h3>
                         <ul>
-                            <li><b>غسل عادي (داخلي/خارجي/شنطة/ماتور هواء):</b> 150 ج</li>
+                            <li><b>غسل عادي:</b> 150 ج</li>
                             <li><b>مسح 30 يوم:</b> 300 ج</li>
-                            <li><b>باقة عادية (غسلة + مسح):</b> 450 ج</li>
-                            <li><b>باقة اقتصادية (2 غسلة + مسح):</b> 550 ج</li>
-                            <li><b>باقة ذهبية (4 غسلات + مسح):</b> 750 ج</li>
-                            <li><b>غسيل موتور وكيماوي:</b> حسب معاينة الفني</li>
+                            <li><b>باقة عادية:</b> 450 ج</li>
+                            <li><b>باقة اقتصادية:</b> 550 ج</li>
+                            <li><b>باقة ذهبية:</b> 750 ج</li>
                         </ul>
                     </div>
-
                     <div class="info-card">
-                        <h3><i class="fa-solid fa-money-bill-transfer"></i> طرق الدفع والتحويل</h3>
+                        <h3><i class="fa-solid fa-money-bill-transfer"></i> طرق الدفع</h3>
                         <ul>
                             <li><b>انستا باي:</b> 01147784888</li>
-                            <li><b>محفظة إلكترونية:</b> 01012764656</li>
-                            <li><b>كاش:</b> يتم الدفع مباشرة في المغسلة</li>
+                            <li><b>محفظة:</b> 01012764656</li>
                         </ul>
                     </div>
-
                     <div class="info-card">
-                        <h3><i class="fa-solid fa-users"></i> جروب الواتساب</h3>
+                        <h3><i class="fa-solid fa-users"></i> الواتساب</h3>
                         <a href="https://chat.whatsapp.com/HZWYLy3APrrEMVcBguRtwx?s=sh&p=a&mlu=4&ilr=4" target="_blank" class="whatsapp-link">انضم لجروب الواتساب</a>
-                    </div>
-
-                    <div class="info-card">
-                        <h3><i class="fa-solid fa-headset"></i> تواصل مع الإدارة</h3>
-                        <ul>
-                            <li>م. تامر اسماعيل: 01147784888</li>
-                            <li>م. أحمد شفيق: 01069006968</li>
-                            <li>م.هندسة جهاد تامر: 01030694669</li>
-                        </ul>
                     </div>
                 </div>
 
-                <!-- Chat Section -->
                 <div class="chat-section">
                     <div class="chat-header">
-                        <span><i class="fa-solid fa-robot"></i> مساعد Lamsa الذكي (متواجد 24/7)</span>
+                        <span><i class="fa-solid fa-robot"></i> Lamsa Support Agent</span>
                         <button onclick="openSubModal()" style="background:#00b4d8; border:none; color:white; padding:5px 12px; border-radius:5px; cursor:pointer; font-size:0.85rem;">اشترك الآن / اطلب خدمة</button>
                     </div>
                     <div class="chat-messages" id="chatMessages">
                         <div class="message bot">
-                            أهلاً بك في Lamsa Car Wash and More في Next Point compound! أنا مساعدك الذكي، كيف يمكنني مساعدتك اليوم؟ (يمكنك التحدث بالعامية، الفصحى، أو الفرانكو).
+                            أهلاً بيك في Lamsa Support Agent! وأقدر أساعدك ازاي؟
                         </div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" id="userInput" placeholder="اكتب استفسارك هنا (أو بالفرانكو)..." onkeypress="handleKeyPress(event)">
+                        <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
                         <button onclick="sendMessage()">إرسال</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ADMIN LOGIN MODAL -->
         <div id="adminLoginModal" class="login-overlay hidden">
             <div class="login-box">
                 <h2>تسجيل دخول الإدارة</h2>
-                <p style="font-size:0.85rem; color:#64748b; text-align:center;">خاص بالمهندسين والمشرفين فقط</p>
-                <input type="text" id="adminUser" placeholder="اسم المستخدم (Username)">
-                <input type="password" id="adminPass" placeholder="كلمة المرور (Password)">
-                <button onclick="verifyAdminLogin()">دخول لوحة التحكم</button>
+                <input type="text" id="adminUser" placeholder="اسم المستخدم">
+                <input type="password" id="adminPass" placeholder="كلمة المرور">
+                <button onclick="verifyAdminLogin()">دخول</button>
                 <button onclick="closeAdminLogin()" style="background:#e2e8f0; color:#334155;">إلغاء</button>
             </div>
         </div>
 
-        <!-- ADMIN VIEW -->
         <div id="adminView" class="view">
             <div class="admin-layout">
-                <!-- Admin Sidebar -->
                 <div class="admin-sidebar">
                     <h2>لوحة التحكم الخاصة</h2>
-                    <p style="font-size:0.85rem; color:#94a3b8;">أهلاً بكِ بشمهندسة جهاد</p>
-                    <button class="admin-menu-btn active" onclick="switchAdminTab('overview')"><i class="fa-solid fa-chart-line"></i> الإحصائيات والرسوم</button>
+                    <button class="admin-menu-btn active" onclick="switchAdminTab('overview')"><i class="fa-solid fa-chart-line"></i> الإحصائيات</button>
                     <button class="admin-menu-btn" onclick="switchAdminTab('chat')"><i class="fa-solid fa-comments"></i> شات المالك والـ AI</button>
-                    <button class="admin-menu-btn" onclick="switchAdminTab('settings')"><i class="fa-solid fa-lock"></i> إعدادات الحساب والأمان</button>
-                    <button class="admin-menu-btn" onclick="logoutAdmin()" style="margin-top:auto; color:#f87171;"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</button>
+                    <button class="admin-menu-btn" onclick="switchAdminTab('settings')"><i class="fa-solid fa-lock"></i> إعدادات الأمان</button>
+                    <button class="admin-menu-btn" onclick="logoutAdmin()" style="margin-top:auto; color:#f87171;"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
                 </div>
 
-                <!-- Admin Content -->
                 <div class="admin-content" id="adminContentArea">
-                    <!-- Overview Tab -->
                     <div id="adminTabOverview" class="admin-tab-content">
                         <div class="stats-grid">
-                            <div class="stat-card">
-                                <h4>إجمالي الإيجابيات</h4>
-                                <div class="value" id="positiveCount">85%</div>
-                            </div>
-                            <div class="stat-card" style="border-right-color:#ef4444;">
-                                <h4>إجمالي السلبيات</h4>
-                                <div class="value" id="negativeCount">15%</div>
-                            </div>
-                            <div class="stat-card" style="border-right-color:#10b981;">
-                                <h4>العملاء النشطين</h4>
-                                <div class="value">42</div>
-                            </div>
+                            <div class="stat-card"><h4>الإيجابيات</h4><div class="value">85%</div></div>
+                            <div class="stat-card" style="border-right-color:#ef4444;"><h4>السلبيات</h4><div class="value">15%</div></div>
+                            <div class="stat-card" style="border-right-color:#10b981;"><h4>العملاء</h4><div class="value">42</div></div>
                         </div>
-
                         <div class="dashboard-section" style="margin-top:20px;">
-                            <h3>رسم بياني لنسب الإيجابيات والسلبيات (Line Graph)</h3>
-                            <div style="height: 300px; position:relative;">
-                                <canvas id="feedbackChart"></canvas>
-                            </div>
+                            <h3>رسم بياني للإحصائيات</h3>
+                            <div style="height: 300px; position:relative;"><canvas id="feedbackChart"></canvas></div>
                         </div>
                     </div>
 
-                    <!-- Chat Tab -->
                     <div id="adminTabChat" class="admin-tab-content hidden">
                         <div class="dashboard-section" style="display:flex; flex-direction:column; height: 75vh;">
-                            <h3>شات خاص بينك وبين الـ AI (مشكلات العملاء والحلول المقترحة)</h3>
+                            <h3>شات الإدارة مع الـ AI</h3>
                             <div class="chat-messages" id="ownerAiMessages" style="flex:1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:15px; margin-bottom:15px;">
-                                <div class="message bot">
-                                    مرحباً بشمهندسة جهاد. أنا أقوم بمراقبة شكاوى العملاء في Next Point compound وتقديم أفضل الحلول المقترحة أول بأول هنا.
-                                </div>
+                                <div class="message bot">مرحباً بشمهندسة جهاد. أنا أتابع النظام معكِ هنا.</div>
                             </div>
                             <div style="display:flex; gap:10px;">
-                                <input type="text" id="ownerAiInput" placeholder="اطلب تقريراً أو استفسر من الـ AI..." style="flex:1; padding:12px; border:1px solid #cbd5e1; border-radius:8px; outline:none;" onkeypress="handleOwnerKeyPress(event)">
+                                <input type="text" id="ownerAiInput" placeholder="اطلب تقريراً..." style="flex:1; padding:12px; border:1px solid #cbd5e1; border-radius:8px; outline:none;" onkeypress="handleOwnerKeyPress(event)">
                                 <button onclick="sendOwnerAiMessage()" style="background:#0077b6; color:white; border:none; padding:12px 20px; border-radius:8px; font-weight:bold; cursor:pointer;">إرسال</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Settings Tab -->
                     <div id="adminTabSettings" class="admin-tab-content hidden">
                         <div class="dashboard-section" style="max-width: 500px;">
-                            <h3>إعدادات بيانات الدخول والأمان</h3>
-                            <p style="font-size:0.85rem; color:#64748b; margin-bottom:15px;">لا يمكن لأي شخص تغيير بيانات الدخول إلا من خلال هذه اللوحة باستخدام كلمة المرور الحالية.</p>
-                            <div style="display:flex; flex-direction:column; gap:12px;">
-                                <label style="font-size:0.9rem; font-weight:bold;">اسم المستخدم الجديد:</label>
+                            <h3>بيانات الدخول</h3>
+                            <div style="display:flex; flex-direction:column; gap:12px; margin-top:10px;">
                                 <input type="text" id="newUsername" value="tamer" style="padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
-                                
-                                <label style="font-size:0.9rem; font-weight:bold;">كلمة المرور الجديدة:</label>
                                 <input type="password" id="newPassword" value="ghalia2022" style="padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
-                                
-                                <button onclick="saveCredentials()" style="background:#10b981; color:white; border:none; padding:12px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:10px;">حفظ التعديلات الأمنية</button>
+                                <button onclick="saveCredentials()" style="background:#10b981; color:white; border:none; padding:12px; border-radius:6px; font-weight:bold; cursor:pointer;">حفظ</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- SUBSCRIPTION MODAL -->
     <div id="subModal" class="modal-overlay">
         <div class="modal-card">
-            <h3>اشتراك أو طلب خدمة Lamsa</h3>
-            <p style="font-size:0.8rem; color:#64748b;">يرجى إدخال بياناتك واختيار الخدمة المطلوبة</p>
-            
-            <input type="text" id="subName" placeholder="الاسم الكامل">
-            <input type="text" id="subPhone" placeholder="رقم الهاتف">
-            <input type="text" id="subCarType" placeholder="نوع السيارة (مثال: كيا سيراتو)">
-            <input type="text" id="subCarColor" placeholder="لون السيارة">
-            <input type="text" id="subCarNumber" placeholder="رقم لوحة السيارة">
-            <input type="text" id="subParking" placeholder="رقم الباكيه / الجراج">
-            
+            <h3>طلب خدمة أو اشتراك</h3>
+            <input type="text" id="subName" placeholder="الاسم">
+            <input type="text" id="subPhone" placeholder="الهاتف">
+            <input type="text" id="subCarType" placeholder="نوع السيارة">
             <select id="subServiceType">
-                <option value="غسل عادي (150 ج)">غسل عادي (داخلي/خارجي/شنطة/ماتور هواء) - 150 ج</option>
-                <option value="مسح 30 يوم (300 ج)">مسح 30 يوم - 300 ج</option>
-                <option value="باقة عادية (450 ج)">الباقة العادية (غسله + مسح) - 450 ج</option>
-                <option value="باقة اقتصادية (550 ج)">الباقة الاقتصادية (٢ غسله + مسح) - 550 ج</option>
-                <option value="باقة ذهبية (750 ج)">الباقة الذهبية (٤ غسلات + مسح) - 750 ج</option>
-                <option value="غسيل موتور وكيماوي">غسيل موتور وكيماوي (حسب المعاينة)</option>
+                <option value="غسل عادي">غسل عادي - 150 ج</option>
+                <option value="مسح 30 يوم">مسح 30 يوم - 300 ج</option>
+                <option value="باقة عادية">باقة عادية - 450 ج</option>
+                <option value="باقة اقتصادية">باقة اقتصادية - 550 ج</option>
+                <option value="باقة ذهبية">باقة ذهبية - 750 ج</option>
             </select>
-
-            <textarea id="subNotes" placeholder="أي ملاحظات مهمة بخصوص الغسيل أو المسح؟" rows="2"></textarea>
-            
-            <label style="font-size:0.85rem; font-weight:bold; margin-top:5px;">رفع صورة إيصال التحويل (InstaPay / المحفظة):</label>
-            <input type="file" id="subReceipt" accept="image/*">
-
-            <div style="display:flex; gap:10px; margin-top:10px;">
-                <button onclick="submitSubscription()" style="flex:1; background:#10b981;">تأكيد وإرسال الطلب</button>
-                <button onclick="closeSubModal()" style="background:#cbd5e1; color:#334155; flex:1;">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- SURVEY MODAL -->
-    <div id="surveyModal" class="modal-overlay">
-        <div class="modal-card">
-            <h3>استطلاع رأي العملاء (Lamsa Survey)</h3>
-            <p style="font-size:0.8rem; color:#64748b;">نود معرفة رأيك في الخدمة المقدمة لنضمن دائماً رضاكم</p>
-            
-            <label style="font-size:0.9rem; font-weight:bold;">ما مدى رضاك عن مستوى نظافة السيارة؟</label>
-            <select id="surveyRating">
-                <option value="positive">ممتاز ورائع جداً (إيجابي)</option>
-                <option value="negative">يوجد ملاحظات أو تقصير (سلبي)</option>
-            </select>
-
-            <textarea id="surveyComment" placeholder="اكتب أي تعليق أو مشكلة واجهتك..." rows="3"></textarea>
-
-            <button onclick="submitSurvey()" style="background:#0077b6; margin-top:10px;">إرسال الاستطلاع</button>
+            <button onclick="submitSubscription()" style="background:#10b981;">إرسال الطلب</button>
+            <button onclick="closeSubModal()" style="background:#cbd5e1; color:#334155;">إلغاء</button>
         </div>
     </div>
 
     <script>
-        let adminCreds = {
-            user: "tamer",
-            pass: "ghalia2022"
-        };
+        let adminCreds = { user: "tamer", pass: "ghalia2022" };
 
         function switchView(viewName) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
             if(viewName === 'client') {
                 document.getElementById('clientView').classList.add('active');
                 event.target.classList.add('active');
             }
         }
 
-        function openAdminLogin() {
-            document.getElementById('adminLoginModal').classList.remove('hidden');
-        }
-
-        function closeAdminLogin() {
-            document.getElementById('adminLoginModal').classList.add('hidden');
-        }
+        function openAdminLogin() { document.getElementById('adminLoginModal').classList.remove('hidden'); }
+        function closeAdminLogin() { document.getElementById('adminLoginModal').classList.add('hidden'); }
 
         function verifyAdminLogin() {
-            const u = document.getElementById('adminUser').value;
-            const p = document.getElementById('adminPass').value;
-            
-            if(u === adminCreds.user && p === adminCreds.pass) {
+            if(document.getElementById('adminUser').value === adminCreds.user && document.getElementById('adminPass').value === adminCreds.pass) {
                 closeAdminLogin();
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
                 document.getElementById('adminView').classList.add('active');
                 initChart();
-            } else {
-                alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
-            }
+            } else { alert('خطأ في البيانات!'); }
         }
 
         function logoutAdmin() {
             document.getElementById('adminView').classList.remove('active');
             document.getElementById('clientView').classList.add('active');
-            document.getElementById('adminUser').value = '';
-            document.getElementById('adminPass').value = '';
         }
 
         function switchAdminTab(tabName) {
             document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.add('hidden'));
             document.querySelectorAll('.admin-menu-btn').forEach(b => b.classList.remove('active'));
-            
-            if(tabName === 'overview') {
-                document.getElementById('adminTabOverview').classList.remove('hidden');
-            } else if(tabName === 'chat') {
-                document.getElementById('adminTabChat').classList.remove('hidden');
-            } else if(tabName === 'settings') {
-                document.getElementById('adminTabSettings').classList.remove('hidden');
-            }
+            document.getElementById(tabName === 'overview' ? 'adminTabOverview' : tabName === 'chat' ? 'adminTabChat' : 'adminTabSettings').classList.remove('hidden');
             event.currentTarget.classList.add('active');
         }
 
         function saveCredentials() {
-            const nu = document.getElementById('newUsername').value;
-            const np = document.getElementById('newPassword').value;
-            if(nu && np) {
-                adminCreds.user = nu;
-                adminCreds.pass = np;
-                alert('تم تحديث بيانات الدخول والأمان بنجاح!');
-            } else {
-                alert('يرجى إدخال بيانات صحيحة.');
-            }
+            adminCreds.user = document.getElementById('newUsername').value;
+            adminCreds.pass = document.getElementById('newPassword').value;
+            alert('تم الحفظ بنجاح!');
         }
 
-        function openSubModal() {
-            document.getElementById('subModal').style.display = 'flex';
-        }
-        function closeSubModal() {
-            document.getElementById('subModal').style.display = 'none';
-        }
-
+        function openSubModal() { document.getElementById('subModal').style.display = 'flex'; }
+        function closeSubModal() { document.getElementById('subModal').style.display = 'none'; }
         function submitSubscription() {
-            const name = document.getElementById('subName').value;
-            const phone = document.getElementById('subPhone').value;
-            const car = document.getElementById('subCarType').value;
-            
-            if(!name || !phone || !car) {
-                alert('يرجى إدخال البيانات الأساسية (الاسم، الهاتف، نوع السيارة).');
-                return;
-            }
-
-            alert('تم استلام طلبك وصورة التحويل بنجاح! سيتم تفعيل الاشتراك وتأكيد البيانات فوراً.');
+            alert('تم استلام طلبك بنجاح وسنتواصل معك فوراً!');
             closeSubModal();
-            
-            setTimeout(() => {
-                document.getElementById('surveyModal').style.display = 'flex';
-            }, 2000);
         }
 
-        function submitSurvey() {
-            alert('شكراً لك على تقييمك! تم إرسال الملاحظات للإدارة والمتابعة الفورية.');
-            document.getElementById('surveyModal').style.display = 'none';
-        }
-
-        function handleKeyPress(e) {
-            if(e.key === 'Enter') sendMessage();
-        }
+        function handleKeyPress(e) { if(e.key === 'Enter') sendMessage(); }
 
         function sendMessage() {
             const input = document.getElementById('userInput');
@@ -432,7 +284,7 @@
             setTimeout(() => {
                 let reply = getAiResponse(text);
                 appendMessage(reply, 'bot', 'chatMessages');
-            }, 600);
+            }, 400);
         }
 
         function appendMessage(text, sender, containerId) {
@@ -444,7 +296,6 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // ذكاء اصطناعي محلي يفهم الفرانكو، العامية، واللغات المختلفة بسلاسة بدون شروط صارمة
         function getAiResponse(rawQuery) {
             let q = rawQuery.toLowerCase()
                 .replace(/3/g, 'ع')
@@ -455,82 +306,12 @@
                 .replace(/6/g, 'ط')
                 .replace(/9/g, 'ص');
 
-            // فحص المعاني والمقاصد بغض النظر عن شكل الكتابة (فرانكو أو عربي أو إنجليزي)
-            if (q.includes('سعر') || q.includes('sa3er') || q.includes('price') || q.includes('kam') || q.includes('بكام') || q.includes('تكلفة') || q.includes('فلوس')) {
-                return "خدماتنا في Next Point compound: غسل عادي 150 ج، مسح 30 يوم 300 ج، باقة عادية 450 ج، باقة اقتصادية 550 ج، باقة ذهبية 750 ج. موتور وكيماوي حسب معاينة الفني.";
-            }
-            if (q.includes('مواعيد') || q.includes('وقت') || q.includes('wakt') || q.includes('time') || q.includes('sa3a') || q.includes('ساعة') || q.includes('متاحيين') || q.includes('فتوح')) {
-                return "مواعيد العمل: طوال أيام الأسبوع على مدار 24 ساعة 24/7 لم خدمة غسيل ومسح السيارات.";
-            }
-            if (q.includes('تحويل') || q.includes('انستا') || q.includes('محفظة') || q.includes('instapay') || q.includes('wallet') || q.includes('daf3') || q.includes('فلوس')) {
-                return "طرق التحويل المتاحة: انستا باي على رقم 01147784888 أو محفظة إلكترونية على رقم 01012764656.";
-            }
-            if (q.includes('مشكلة') || q.includes('شكوى') || q.includes('problem') || q.includes('issue') || q.includes('zalan') || q.includes('مش عاجبني') || q.includes('بوظتو')) {
-                return "نأسف لسماع ذلك تماماً. لقد تم إبلغ الإدارة بالشكوى وسنتواصل معك شخصياً لحل المشكلة فوراً.";
-            }
-            if (q.includes('اشتراك') || q.includes('اشترك') || q.includes('subscribe') || q.includes('booking') || q.includes('احجز')) {
-                return "يمكنك الضغط على زر 'اشترك الآن / اطلب خدمة' أعلى الشات لتسجيل بيانات سيارتك وباقاتك بسهولة!";
-            }
-            
-            // رد ذكي افتراضي يرحّب بالعميل مهما كانت لغته أو طريقته
-            return "أهلاً بك في Lamsa Car Wash and More في Next Point compound! نحن معك على مدار 24/7 لخدمات غسيل ومسح السيارات. هل ترغب في الاستفسار عن باقات الأسعار أو مواعيد الخدمة؟";
-        }
+            const match = (words) => words.some(w => q.includes(w));
 
-        function handleOwnerKeyPress(e) {
-            if(e.key === 'Enter') sendOwnerAiMessage();
-        }
-
-        function sendOwnerAiMessage() {
-            const input = document.getElementById('ownerAiInput');
-            const text = input.value.trim();
-            if(!text) return;
-
-            appendMessage(text, 'user', 'ownerAiMessages');
-            input.value = '';
-
-            setTimeout(() => {
-                appendMessage("تم استلام استفسارك يا بشمهندسة جهاد، وجاري تحديث الإحصائيات وإرسال التوصيات المناسبة.", 'bot', 'ownerAiMessages');
-            }, 600);
-        }
-
-        let myChart = null;
-        function initChart() {
-            if(myChart) return;
-            const ctx = document.getElementById('feedbackChart').getContext('2d');
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
-                    datasets: [
-                        {
-                            label: 'الإيجابيات (صاعد)',
-                            data: [60, 68, 75, 72, 80, 83, 85],
-                            borderColor: '#10b981',
-                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.3
-                        },
-                        {
-                            label: 'السلبيات (نازل)',
-                            data: [40, 32, 25, 28, 20, 17, 15],
-                            borderColor: '#ef4444',
-                            backgroundColor: 'rgba(239, 68, 64, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.3
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: true, max: 100 }
-                    }
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+            if (match(['سعر', 'اسعار', 'كم', 'كام', 'تكلفة', 'بكام', 'فلوس', 'sa3er', 'price', 'cost'])) {
+                return "الأسعار: غسل عادي 150 ج | مسح 30 يوم 300 ج | باقة عادية 450 ج | باقة اقتصادية 550 ج | باقة ذهبية 750 ج.";
+            }
+            if (match(['مواعيد', 'وقت', 'ساعة', 'متاحيين', 'امتى', 'wakt', 'time', 'sa3a', 'hours'])) {
+                return "مواعيد العمل: متاحين على مدار الساعة 24/7 طوال الأسبوع.";
+            }
+            if (match(['تحويل', 'انستا', 'محفظة', 'instapay', 'wallet', 'daf3', 'دفع', '
